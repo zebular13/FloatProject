@@ -5,6 +5,8 @@
 #include <avr/power.h>
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(60, 6, NEO_GRB + NEO_KHZ800);
 
+
+int x;
 // Fill the dots one after the other with a color
 void solidColor(uint32_t c) {
   for(uint16_t i=0; i<strip.numPixels(); i++) {
@@ -14,24 +16,82 @@ void solidColor(uint32_t c) {
 
 }
 
+
 void onKeyPress(unsigned char key)
 {
-    Serial.println("KeyDown");
+  Serial.println("KeyDown");
   Serial.print(key);
   Serial.println("");
-      writeKey(key,HIGH);
-  solidColor(strip.Color(255, 0, 0)); // Red
+  fadeIn();
+  writeKey(key,HIGH);
+  if (key == 9)
+  {
+  x++;
+     if (x==1) {
+        solidColor(strip.Color(255, 0, 0)); // Red
+        Serial.print("color is red");
+     }
+     if (x==2) {
+        solidColor(strip.Color(255, 255, 0)); // Red
+         Serial.print("color is yellow");
+     }
+     if (x==3) {
+        solidColor(strip.Color(255, 255, 255)); // Red
+         Serial.print("color is white?");
+     }
+     if (x==4) {
+        solidColor(strip.Color(0, 255, 0)); // Red
+         Serial.print("color is green");
+     }
+     if (x==5) {
+       x=1;
+       solidColor(strip.Color(255, 0, 0)); // Red
+       Serial.print("color is red");
+     }
+   }
+ 
+   
+
+  /*if (key == 12)
+  {
+  x--;
+     if (x==1) {
+        solidColor(strip.Color(255, 0, 0)); // Red
+        Serial.print("color is red");
+     }
+     if (x==2) {
+        solidColor(strip.Color(255, 255, 0)); // Red
+         Serial.print("color is yellow");
+     }
+     if (x==3) {
+        solidColor(strip.Color(255, 255, 255)); // Red
+         Serial.print("color is white?");
+     }
+     if (x==4) {
+        solidColor(strip.Color(0, 255, 0)); // Red
+         Serial.print("color is green");
+     }
+     if (x==5) {
+       x=1;
+       solidColor(strip.Color(255, 0, 0)); // Red
+       Serial.print("color is red");
+     
+   }
+  }*/
+     
+  
+
  
 }
 
 void onKeyUp(unsigned char key)
 {
+  fadeOut();
   Serial.println("KeyUp");
   Serial.print(key);
   Serial.println("");
    writeKey(key,LOW);
-        solidColor(strip.Color(255, 0, 255)); // WHITE
-
+       
 }
 
 
@@ -66,7 +126,6 @@ void setup() {
 
 
 void loop() {
-  
   pollUI();
 }
 void fadeIn(){
