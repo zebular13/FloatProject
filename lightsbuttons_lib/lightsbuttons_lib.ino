@@ -4,7 +4,7 @@
 #include <Adafruit_NeoPixel.h>
 #include <avr/power.h>
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(60, 6, NEO_GRB + NEO_KHZ800);
-
+Process p;
 
 int x;
 // Fill the dots one after the other with a color
@@ -24,24 +24,31 @@ void onKeyPress(unsigned char key)
   Serial.println("");
   fadeIn();
   writeKey(key,HIGH);
+  if (key == 7){
+    Serial.println("volume up");
+    //p.runShellCommand("madplay /root/Float.mp3");
+  }
   if (key == 10) {
-        writeLed(7,2);
-        writeLed(8,0);
-        Serial.println("function on");
+        writeLed(5,2);
+        writeLed(4,0);
+       
   }
   if (key == 11) {
-    x++;
+        writeLed(8,2);
+        writeLed(7,0);
+     Serial.println("function on");
+    /*x++;
     if (x=1) {
-        writeLed(5,2);
-        writeLed(6,0);
+        writeLed(7,2);
+        writeLed(8,0);
     }
     if (x=2){
-        writeLed(5,0);
-        writeLed(6,2);
+        writeLed(7,0);
+        writeLed(8,2);
     }
     if(x=3){
       x=1;
-    }
+    }*/
   }
   if (key == 9)
   {
@@ -72,39 +79,6 @@ void onKeyPress(unsigned char key)
        Serial.print("color is red");
      }
    }
- 
-   
-
-  /*if (key == 12)
-  {
-  x--;
-     if (x==1) {
-        solidColor(strip.Color(255, 0, 0)); // Red
-        Serial.print("color is red");
-     }
-     if (x==2) {
-        solidColor(strip.Color(255, 255, 0)); // Red
-         Serial.print("color is yellow");
-     }
-     if (x==3) {
-        solidColor(strip.Color(255, 255, 255)); // Red
-         Serial.print("color is white?");
-     }
-     if (x==4) {
-        solidColor(strip.Color(0, 255, 0)); // Red
-         Serial.print("color is green");
-     }
-     if (x==5) {
-       x=1;
-       solidColor(strip.Color(255, 0, 0)); // Red
-       Serial.print("color is red");
-     
-   }
-  }*/
-     
-  
-
- 
 }
 
 void onKeyUp(unsigned char key)
@@ -113,11 +87,8 @@ void onKeyUp(unsigned char key)
   Serial.println("KeyUp");
   Serial.print(key);
   Serial.println("");
-   writeKey(key,LOW);
-       
+   writeKey(key,LOW);     
 }
-
-
 
 
 const int resetPin =  12;
