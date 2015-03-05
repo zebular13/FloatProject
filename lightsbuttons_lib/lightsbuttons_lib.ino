@@ -24,9 +24,28 @@ void onKeyPress(unsigned char key)
   Serial.println("");
   fadeIn();
   writeKey(key,HIGH);
+  if (key == 10) {
+        writeLed(7,2);
+        writeLed(8,0);
+        Serial.println("function on");
+  }
+  if (key == 11) {
+    x++;
+    if (x=1) {
+        writeLed(5,2);
+        writeLed(6,0);
+    }
+    if (x=2){
+        writeLed(5,0);
+        writeLed(6,2);
+    }
+    if(x=3){
+      x=1;
+    }
+  }
   if (key == 9)
   {
-  x++;
+    x++;
      if (x==1) {
         solidColor(strip.Color(255, 0, 0)); // Red
         Serial.print("color is red");
@@ -44,6 +63,10 @@ void onKeyPress(unsigned char key)
          Serial.print("color is green");
      }
      if (x==5) {
+        solidColor(strip.Color(0, 0, 255)); // Red
+         Serial.print("color is blue");
+     }
+     if (x==6) {
        x=1;
        solidColor(strip.Color(255, 0, 0)); // Red
        Serial.print("color is red");
@@ -134,7 +157,6 @@ void fadeIn(){
   writeLed(2,1);
   writeLed(3,1);
   writeLed(4,1);
-  writeLed(4,1);
   writeLed(6,1);
   delay(1000);
   writeLed(0,2);
@@ -152,14 +174,12 @@ void fadeOut(){
   writeLed(2,1);
   writeLed(3,1);
   writeLed(4,1);
-  writeLed(4,1);
   writeLed(6,1);
   delay(300);
   writeLed(0,0);
   writeLed(1,0);
   writeLed(2,0);
   writeLed(3,0);
-  writeLed(4,0);
   writeLed(4,0);
   writeLed(6,0);
 }
